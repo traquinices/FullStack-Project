@@ -11,80 +11,81 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// REST controller exposing movie endpoints (local DB + TMDB integration)
 @RestController
 @RequestMapping("/api/movies")
 @RequiredArgsConstructor
-@Tag(name = "Movies", description = "Operações CRUD e integração com TMDB")
+@Tag(name = "Movies", description = "CRUD operations and TMDB integration")
 public class MovieController {
 
     private final MovieService movieService;
     private final TmdbClient tmdbClient;
 
-    //  CRUD (base de dados local)
+    // --- Local database CRUD ---
 
     @GetMapping
-    @Operation(summary = "Listar todos os filmes guardados")
+    @Operation(summary = "List all saved movies")
     public ResponseEntity<List<MovieDTO>> getAllMovies() {
         return ResponseEntity.ok(movieService.getAllMovies());
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Obter filme por ID")
+    @Operation(summary = "Get movie by local ID")
     public ResponseEntity<MovieDTO> getMovieById(@PathVariable Long id) {
         return ResponseEntity.ok(movieService.getMovieById(id));
     }
 
     @PostMapping
-    @Operation(summary = "Guardar um filme na base de dados")
+    @Operation(summary = "Save a movie to the database")
     public ResponseEntity<MovieDTO> saveMovie(@RequestBody MovieDTO dto) {
         return ResponseEntity.ok(movieService.saveMovie(dto));
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Atualizar um filme na base de dados")
+    @Operation(summary = "Update a movie in the database")
     public ResponseEntity<MovieDTO> updateMovie(@PathVariable Long id, @RequestBody MovieDTO dto) {
         return ResponseEntity.ok(movieService.updateMovie(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Apagar um filme da base de dados")
+    @Operation(summary = "Delete a movie from the database")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
         return ResponseEntity.noContent().build();
     }
 
-    //  Pesquisa local
+    // --- Local search ---
 
     @GetMapping("/search")
-    @Operation(summary = "Pesquisar filmes guardados na base de dados")
+    @Operation(summary = "Search movies saved in the local database")
     public ResponseEntity<List<MovieDTO>> searchLocal(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String genres) {
         return ResponseEntity.ok(movieService.searchLocal(title, genres));
     }
 
-    //  TMDB (API pública)
+    // --- TMDB public API ---
 
     @GetMapping("/tmdb/popular")
-    @Operation(summary = "Listar filmes populares da TMDB")
+    @Operation(summary = "List popular movies from TMDB")
     public ResponseEntity<List<MovieDTO>> getPopularMovies() {
         return ResponseEntity.ok(tmdbClient.getPopularMovies());
     }
 
     @GetMapping("/tmdb/search")
-    @Operation(summary = "Pesquisar filmes na TMDB")
+    @Operation(summary = "Search movies on TMDB")
     public ResponseEntity<List<MovieDTO>> searchMovies(@RequestParam String query) {
         return ResponseEntity.ok(tmdbClient.searchMovies(query));
     }
 
     @GetMapping("/tmdb/{tmdbId}")
-    @Operation(summary = "Obter detalhes de um filme da TMDB")
+    @Operation(summary = "Get movie details from TMDB")
     public ResponseEntity<MovieDTO> getMovieFromTmdb(@PathVariable Long tmdbId) {
         return ResponseEntity.ok(tmdbClient.getMovieDetails(tmdbId));
     }
 
     @PostMapping("/tmdb/{tmdbId}/save")
-    @Operation(summary = "Guardar filme da TMDB diretamente na base de dados")
+    @Operation(summary = "Save a TMDB movie directly to the database")
     public ResponseEntity<MovieDTO> saveMovieFromTmdb(@PathVariable Long tmdbId) {
         return ResponseEntity.ok(movieService.saveMovieFromTmdb(tmdbId));
     }

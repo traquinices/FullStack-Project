@@ -17,7 +17,7 @@ function PopularPage() {
       const res = await getPopularMovies()
       setMovies(res.data)
     } catch (err) {
-      console.error('Erro ao carregar filmes populares:', err)
+      console.error('Error loading popular movies:', err)
     } finally {
       setLoading(false)
     }
@@ -33,11 +33,11 @@ function PopularPage() {
     }
   }
 
-  if (loading) return <p style={{ padding: '32px', color: 'white' }}>A carregar...</p>
+  if (loading) return <p style={{ padding: '32px', color: 'white' }}>Loading...</p>
 
   return (
     <div style={styles.container}>
-      <h1>🔥 Filmes Populares</h1>
+      <h1>🔥 Popular Movies</h1>
       <div style={styles.grid}>
         {movies.map((movie) => (
           <div key={movie.tmdbId} style={styles.card}>
@@ -67,10 +67,10 @@ function PopularPage() {
                 }}
               >
                 {saved[movie.tmdbId] === true
-                  ? '✅ Guardado'
+                  ? '✅ Saved'
                   : saved[movie.tmdbId] === 'erro'
-                  ? '❌ Já existe'
-                  : '💾 Guardar'}
+                  ? '❌ Already exists'
+                  : '💾 Save'}
               </button>
             </div>
           </div>

@@ -19,9 +19,9 @@ function Navbar() {
       <Link to="/" style={styles.logo}>🎬 Movies App</Link>
       <div style={styles.links}>
         <Link to="/" style={linkStyle('/')}>Home</Link>
-        <Link to="/movies" style={linkStyle('/movies')}>Os Meus Filmes</Link>
-        <Link to="/popular" style={linkStyle('/popular')}>🔥 Populares</Link>
-        <Link to="/search" style={linkStyle('/search')}>Pesquisar</Link>
+        <Link to="/movies" style={linkStyle('/movies')}>My Movies</Link>
+        <Link to="/popular" style={linkStyle('/popular')}>🔥 Popular</Link>
+        <Link to="/search" style={linkStyle('/search')}>Search</Link>
       </div>
     </nav>
   )

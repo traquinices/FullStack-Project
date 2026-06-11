@@ -8,17 +8,17 @@ function HomePage() {
       <div style={styles.hero}>
         <h1 style={styles.title}>🎬 Movies App</h1>
         <p style={styles.subtitle}>
-          Descobre, guarda e gere os teus filmes favoritos
+          Discover, save and manage your favourite movies
         </p>
         <div style={styles.buttons}>
           <button onClick={() => navigate('/popular')} style={styles.btnPrimary}>
-            🔥 Ver Populares
+            🔥 Popular Movies
           </button>
           <button onClick={() => navigate('/search')} style={styles.btnSecondary}>
-            🔍 Pesquisar Filmes
+            🔍 Search Movies
           </button>
           <button onClick={() => navigate('/movies')} style={styles.btnSecondary}>
-            📋 Os Meus Filmes
+            📋 My Movies
           </button>
         </div>
       </div>

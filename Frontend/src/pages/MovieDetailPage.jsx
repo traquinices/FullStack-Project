@@ -17,29 +17,29 @@ function MovieDetailPage() {
       const res = await getMovieById(id)
       setMovie(res.data)
     } catch (err) {
-      console.error('Erro ao carregar filme:', err)
+      console.error('Error loading movie:', err)
     } finally {
       setLoading(false)
     }
   }
 
   const handleDelete = async () => {
-    if (!confirm('Tens a certeza que queres apagar este filme?')) return
+    if (!confirm('Are you sure you want to delete this movie?')) return
     try {
       await deleteMovie(id)
       navigate('/movies')
     } catch (err) {
-      console.error('Erro ao apagar:', err)
+      console.error('Error deleting movie:', err)
     }
   }
 
-  if (loading) return <p style={{ padding: '32px', color: 'white' }}>A carregar...</p>
-  if (!movie) return <p style={{ padding: '32px', color: 'white' }}>Filme não encontrado.</p>
+  if (loading) return <p style={{ padding: '32px', color: 'white' }}>Loading...</p>
+  if (!movie) return <p style={{ padding: '32px', color: 'white' }}>Movie not found.</p>
 
   return (
     <div style={styles.container}>
       <button onClick={() => navigate('/movies')} style={styles.backBtn}>
-        ← Voltar
+        ← Back
       </button>
 
       <div style={styles.hero}>
@@ -57,11 +57,8 @@ function MovieDetailPage() {
           <p style={styles.meta}>🎭 {movie.genres}</p>
           <p style={styles.overview}>{movie.overview}</p>
           <div style={styles.actions}>
-            <button onClick={() => navigate(`/movies/${id}/edit`)} style={styles.editBtn}>
-              ✏️ Editar
-            </button>
             <button onClick={handleDelete} style={styles.deleteBtn}>
-              🗑️ Apagar
+              🗑️ Delete
             </button>
           </div>
         </div>

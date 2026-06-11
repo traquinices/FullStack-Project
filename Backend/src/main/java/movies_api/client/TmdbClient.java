@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+// Client responsible for communicating with the TMDB public API
 @Component
 public class TmdbClient {
 
@@ -20,24 +21,28 @@ public class TmdbClient {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    // Search movies by query string
     public List<MovieDTO> searchMovies(String query) {
-        String url = baseUrl + "/search/movie?api_key=" + apiKey + "&query=" + query + "&language=pt-PT";
+        String url = baseUrl + "/search/movie?api_key=" + apiKey + "&query=" + query + "&language=en-US";
         Map response = restTemplate.getForObject(url, Map.class);
         return parseMovies(response);
     }
 
+    // Fetch currently popular movies
     public List<MovieDTO> getPopularMovies() {
-        String url = baseUrl + "/movie/popular?api_key=" + apiKey + "&language=pt-PT";
+        String url = baseUrl + "/movie/popular?api_key=" + apiKey + "&language=en-US";
         Map response = restTemplate.getForObject(url, Map.class);
         return parseMovies(response);
     }
 
+    // Fetch full details for a specific movie by TMDB ID
     public MovieDTO getMovieDetails(Long tmdbId) {
-        String url = baseUrl + "/movie/" + tmdbId + "?api_key=" + apiKey + "&language=pt-PT";
+        String url = baseUrl + "/movie/" + tmdbId + "?api_key=" + apiKey + "&language=en-US";
         Map movie = restTemplate.getForObject(url, Map.class);
         return parseMovie(movie);
     }
 
+    // Parse a list of movie maps from the TMDB response
     private List<MovieDTO> parseMovies(Map response) {
         List<MovieDTO> movies = new ArrayList<>();
         if (response == null) return movies;
@@ -51,6 +56,7 @@ public class TmdbClient {
         return movies;
     }
 
+    // Map a raw TMDB movie map to a MovieDTO
     private MovieDTO parseMovie(Map movie) {
         MovieDTO dto = new MovieDTO();
         dto.setTmdbId(getLong(movie, "id"));
@@ -62,6 +68,7 @@ public class TmdbClient {
         return dto;
     }
 
+    // Safely extract a Long value from a map (handles Integer or Long)
     private Long getLong(Map map, String key) {
         Object val = map.get(key);
         if (val instanceof Integer) return ((Integer) val).longValue();
@@ -69,6 +76,7 @@ public class TmdbClient {
         return null;
     }
 
+    // Safely extract a Double value from a map (handles Double or Integer)
     private Double getDouble(Map map, String key) {
         Object val = map.get(key);
         if (val instanceof Double) return (Double) val;

@@ -16,29 +16,29 @@ function MoviesPage() {
       const res = await getAllMovies()
       setMovies(res.data)
     } catch (err) {
-      console.error('Erro ao carregar filmes:', err)
+      console.error('Error loading movies:', err)
     } finally {
       setLoading(false)
     }
   }
 
   const handleDelete = async (id) => {
-    if (!confirm('Tens a certeza que queres apagar este filme?')) return
+    if (!confirm('Are you sure you want to delete this movie?')) return
     try {
       await deleteMovie(id)
       setMovies(movies.filter((m) => m.id !== id))
     } catch (err) {
-      console.error('Erro ao apagar filme:', err)
+      console.error('Error deleting movie:', err)
     }
   }
 
-  if (loading) return <p style={{ padding: '32px', color: 'white' }}>A carregar...</p>
+  if (loading) return <p style={{ padding: '32px', color: 'white' }}>Loading...</p>
 
   return (
     <div style={styles.container}>
-      <h1>Os Meus Filmes</h1>
+      <h1>My Movies</h1>
       {movies.length === 0 ? (
-        <p>Não tens filmes guardados.</p>
+        <p>You have no saved movies.</p>
       ) : (
         <div style={styles.grid}>
           {movies.map((movie) => (
@@ -67,7 +67,7 @@ function MoviesPage() {
                   }}
                   style={styles.deleteBtn}
                 >
-                  🗑️ Apagar
+                  🗑️ Delete
                 </button>
               </div>
             </div>

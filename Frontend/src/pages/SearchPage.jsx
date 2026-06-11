@@ -14,7 +14,7 @@ function SearchPage() {
       const res = await searchTmdb(query)
       setResults(res.data)
     } catch (err) {
-      console.error('Erro na pesquisa:', err)
+      console.error('Search error:', err)
     } finally {
       setLoading(false)
     }
@@ -25,29 +25,29 @@ function SearchPage() {
       await saveMovieFromTmdb(tmdbId)
       setSaved((prev) => ({ ...prev, [tmdbId]: true }))
     } catch (err) {
-      console.error('Erro ao guardar filme:', err)
+      console.error('Error saving movie:', err)
       setSaved((prev) => ({ ...prev, [tmdbId]: 'erro' }))
     }
   }
 
   return (
     <div style={styles.container}>
-      <h1>Pesquisar Filmes</h1>
+      <h1>Search Movies</h1>
       <div style={styles.searchBar}>
         <input
           type="text"
-          placeholder="Pesquisa um filme..."
+          placeholder="Search for a movie..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
           style={styles.input}
         />
         <button onClick={handleSearch} style={styles.searchBtn}>
-          🔍 Pesquisar
+          🔍 Search
         </button>
       </div>
 
-      {loading && <p>A pesquisar...</p>}
+      {loading && <p>Searching...</p>}
 
       <div style={styles.grid}>
         {results.map((movie) => (
@@ -78,10 +78,10 @@ function SearchPage() {
                 }}
               >
                 {saved[movie.tmdbId] === true
-                  ? '✅ Guardado'
+                  ? '✅ Saved'
                   : saved[movie.tmdbId] === 'erro'
-                  ? '❌ Já existe'
-                  : '💾 Guardar'}
+                  ? '❌ Already exists'
+                  : '💾 Save'}
               </button>
             </div>
           </div>
