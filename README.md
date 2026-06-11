@@ -208,7 +208,29 @@ This fetches all movie data from TMDB automatically and saves it to the database
 
 ## 📸 Screenshots
 
-> Add screenshots here after running the project
+## 1. Searching TMDB for "Lord of the rings" (Swagger)
+![TMDB Search](screenshots/1.png)
+
+## 2. PostgreSQL table `movies` – data view (pgAdmin)
+![PostgreSQL Table Data](screenshots/2.png)
+
+## 3. Query results – saved movies (pgAdmin)
+![Query Results](screenshots/3.png)
+
+## 4. GET `/api/movies` – JSON response of saved movies
+![API List Movies Response](screenshots/4.png)
+
+## 5. Frontend – search page with Star Wars results
+![Frontend Search](screenshots/5.png)
+
+## 6. Frontend – "My Movies" list
+![My Movies List](screenshots/6.png)
+
+## 7. Frontend – movie details page (The Dark Knight)
+![Movie Details](screenshots/7.png)
+
+## 8. DELETE `/api/movies/{id}` – successful 204 response (Swagger)
+![API Delete Success](screenshots/8.png)
 
 ---
 
