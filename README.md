@@ -75,7 +75,7 @@ Make sure you have the following installed:
 - [Maven](https://maven.apache.org)
 - [PostgreSQL](https://www.postgresql.org/download)
 - [Node.js 18+](https://nodejs.org)
-- A TMDB API key — get one free at [themoviedb.org](https://www.themoviedb.org/settings/api)
+- A TMDB API key —[themoviedb.org](https://www.themoviedb.org/settings/api)
 
 ---
 
@@ -84,7 +84,7 @@ Make sure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/movies-app.git
+git clone https://github.com/traquinices/movies-app.git
 cd movies-app
 ```
 
